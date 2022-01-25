@@ -1,4 +1,4 @@
-			<div class="header_content">
+		<div class="header_content">
 		<form id="formulario" name="formulario" method="get" action="recebe_dados.php">
 				<tr>
 					<div>
@@ -14,5 +14,7 @@
 						<button type="limpar"> Limpar </button>
 				</tr>
 			</form>
+
+			
 		</div>
 		<br><br><br><br><br><br>

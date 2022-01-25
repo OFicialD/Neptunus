@@ -10,10 +10,11 @@
 	
 		<body>
 <?php
+    session_start();
     include("cabecalho.php");
 
     // Recebe os dados e guarda-os em variáveis
-    $nome = $_GET['nome'];
+    $nome = $_SESSION['nome'];
     $linkTemp = $_GET['link'];
 
     //dados do banco de dados
