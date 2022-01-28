@@ -20,15 +20,21 @@
 				if ($pag == "principal")
 					include("principal.php");
 				if ($pag == "login")
-					include("login.php");	
+					include("login.php");
+				if ($pag == "registro")
+					include("registro.php");	
 				if ($pag == "comunidade")
 					include("comunidade.php");
+				if ($pag == "seguindo")
+					include("seguindo.php");
 				if ($pag == "sobre")
 					include("sobre.php");
 				if ($pag == "contato")
 					include("contato.php");
+				if ($pag == "populares")
+					include("populares.php");		
 			} else{
-				include("login.php");
+				header("location: login.php");
 			}
 			?>
 			

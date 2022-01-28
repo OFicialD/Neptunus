@@ -20,7 +20,7 @@
         $dados = pg_fetch_array($resultado);
         $link  = $dados['link'];
         $likes = $dados['likes'];
-        $descricao  = $dados['descricao'];
+        $descricao = $dados['descricao'];
         $autor = $dados['nome'];
 
         //echo do html da página
@@ -30,7 +30,7 @@
         "\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>
         ";
 
-        //botão de curtida
+        //Montando layout de likes, autor e descrição abaixo do vídeo
         $_SESSION['likes']  = $likes;
         $_SESSION['contid'] = $contid;
         echo "<br><br>Autor:$autor<form method=\"POST\" action=\"curtir_video.php\">

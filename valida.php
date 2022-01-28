@@ -1,9 +1,15 @@
 <?php
 	require_once 'conexao.php';
-	//sanitiação
 	session_start();
+	//prevenindo sql inject
 	$usuario = pg_escape_string($con,$_POST['email']);
-	$senha = pg_escape_string($con,$_POST['senha']);
+	$senha1 = pg_escape_string($con,$_POST['senha']);
+
+	//sanitização
+	$usuario    = filter_var($usuario, FILTER_SANITIZE_EMAIL);
+	$senha1   = filter_var($senha1, FILTER_SANITIZE_SPECIAL_CHARS);
+
+	$senha = md5($senha1); //criptografando senha em md5
 
 	//Busca nas tabelas as correspondências de Email e Senha
 	$query = "SELECT * FROM usuario WHERE email ='$usuario' AND senha='$senha'";

@@ -12,10 +12,18 @@
 <?php
     session_start();
     include("cabecalho.php");
+    include_once("conexao.php");
 
-    // Recebe os dados e guarda-os em variáveis
+    //Prevenindo sql inject
+    $titulo    = pg_escape_string($con,$_POST['titulo']);
+    $linkTemp  = pg_escape_string($con,$_POST['link']);
+    $descricao = pg_escape_string($con,$_POST['descricao']);
     $nome = $_SESSION['nome'];
-    $linkTemp = $_GET['link'];
+
+    //sanitização
+	$titulo    = filter_var($titulo, FILTER_SANITIZE_SPECIAL_CHARS);
+    $linkTemp  = filter_var($linkTemp, FILTER_SANITIZE_URL);
+	$descricao = filter_var($descricao, FILTER_SANITIZE_SPECIAL_CHARS);
 
     //dados do banco de dados
     $host = "kashin.db.elephantsql.com";
@@ -23,13 +31,13 @@
     $pass = "XD1Cbv1phrgq9OmqtFNs_nRGYiIUfWSn";
     $db = "udelhnwy";
 
+    /*
     // conexão ao banco de dados em PostgreSQL 
     $con = pg_connect("host=$host dbname=$db user=$user password=$pass")
-    or die ("Could not connect to server\n");
+    or die ("Could not connect to server\n"); */
 
     //tranformar link para miniplayer
     $link = substr($linkTemp, 0, 24)."embed/".substr($linkTemp, (32-(strlen($linkTemp))));
-
     $i = 0;
     $marcador = 0;
     while ($i < strlen($link)){
@@ -42,13 +50,12 @@
 
 
     //query para adicionar no banco de dados
-    $query = "INSERT INTO conteudo (nome, link) VALUES ('$nome', '$link')";
+    $query = "INSERT INTO conteudo (nome, link, likes, descricao) VALUES ('$nome', '$link', '0', '$descricao')";
 
     if (pg_query($con, $query)) {
         echo "Novo vídeo registrado com sucesso";
     }else {
     echo "Vídeo não registrado";
-    echo "Error: " . $sql . "<br>" . mysqli_error($con); 
     }
     include("cadastro.php");
     include("rodape.php");
